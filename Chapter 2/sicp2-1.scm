@@ -1,0 +1,25 @@
+(define (gcd a b)
+    (if (= b 0)
+        a
+        (gcd b (remainder a b))))
+
+(define (make-rat n d)
+    (let ((g (gcd (abs n) (abs d))))
+         (if (or (and (< n 0) (< d 0)) (and (> n 0) (< d 0)))
+             (cons (- (/ n g)) (- (/ d g)))
+             (cons (/ n g) (/ d g)))))
+(define (numer rat)
+    (car rat))
+(define (denom rat)
+    (cdr rat))
+
+(define (print-rat rat)
+    (display (numer rat))
+    (display "/")
+    (display (denom rat))
+    (newline))
+
+(print-rat (make-rat 6 -8))
+(print-rat (make-rat -2 -8))
+(print-rat (make-rat 50 100))
+(print-rat (make-rat -12 33))
