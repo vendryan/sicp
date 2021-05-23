@@ -39,7 +39,8 @@
     (make-interval (min p1 p2 p3 p4)
                    (max p1 p2 p3 p4))))
 
-; Divided into 9 cases
+; Divided into  9 cases
+; Why Ben ?? WHY?? the code become like this because your advice
 (define (mul-interval2 x y)
     (let ((lx (lower-bound x))
           (ly (lower-bound y))
