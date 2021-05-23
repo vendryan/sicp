@@ -47,7 +47,16 @@
                     (negative? uy)))
             (make-interval (* lx ly)
                            (* ux uy)))
-          ()
+          ((or (and (not (negative? lx)) ; - - + +
+                    (not (negative? ux)) ; + + - -  Cases
+                    (negative? ly)
+                    (negative? uy))
+               (and (negative? lx)
+                    (negative? ux)
+                    (not (negative? ly))
+                    (not (negative? uy))))
+            (make-interval (* ux uy)
+                           (* lx ly)))
 
 (define (div-interval x y)
     (if (or (= (upper-bound y) 0) (= (lower-bound y) 0))
