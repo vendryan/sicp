@@ -55,12 +55,14 @@
        (lower-bound interval)))
 
 ; *** Answer here ***
+; Produce interval of given center and percentage
 (define (make-center-percent center percentage)
     (let ((deviation (* (/ percentage 100.0) 
                         (abs center))))
         (make-interval (- center deviation)
                        (+ center deviation))))
 
+; Produce percentage tolerance of given interval
 (define (percent interval)
     (let ((ctr (center interval))
           (lx (lower-bound interval)))
