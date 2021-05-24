@@ -15,8 +15,14 @@
 
 ; Return the the list that is squared from
 ; given list
-(define (square-list items)
+(define (square-list1 items)
     (map (lambda (x) (* x x))
          items))
+(define (square-list2 items)
+    (if (null? items)
+        nil
+        (cons (* (car items) (car items))
+              (square-list2 (cdr items)))))
 
-(print (square-list test)) ; (1 4 9 16 25)
+(print (square-list1 test)) ; (1 4 9 16 25)
+(print (square-list2 test)) ; (1 4 9 16 25)
