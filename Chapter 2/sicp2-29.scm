@@ -15,7 +15,7 @@
 (define (branch-structure branch)
     (cadr branch))
 (define (total-weight mobile)
-    (cond ((null? mobile) 0)
+    (cond ; ((null? mobile) 0) (this is not necessary as we never encounter null value)
           ((not (pair? mobile)) mobile) ; means its a number
           (else (+ (total-weight (branch-structure (left-branch mobile)))
                    (total-weight (branch-structure (right-branch mobile)))))))
