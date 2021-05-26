@@ -1,13 +1,7 @@
 (define nil '())
-(define test (list 1 2 3 4 5 9))
-(define test2 (list 4 5 9 3 7))
-(define test3 (list (list 2 3 (list 4 5)) 2 4 6))
-(define test4 (list 12 (list 3 4)))
-
 (define (print line)
     (display line)
     (newline))
-
 (define (make-mobile left right)
     (list left right))
 (define (make-branch length structure)
@@ -21,4 +15,13 @@
 (define (branch-structure branch)
     (cadr branch))
 
-(print (right-branch (make-mobile 3 4)))
+(define branch1 (make-branch 5 10))
+(define branch2 (make-branch 3 4))
+(define mobile1 (make-mobile branch1 branch2))
+(define branch3 (make-branch 5 7))
+(define branch4 (make-branch 3 mobile1))
+(define mobile2 (make-mobile branch3 branch4))
+
+
+
+(print mobile2)
