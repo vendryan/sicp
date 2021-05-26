@@ -2,6 +2,21 @@
 (define (print line)
     (display line)
     (newline))
+; if change the representation into cons we just need
+; to change the constructor and selector and the
+; total weight procedure still works
+;(define (make-mobile left right)
+    ;(cons left right))
+;(define (make-branch length structure)
+    ;(cons length structure))
+;(define (left-branch mobile)
+    ;(car mobile))
+;(define (right-branch mobile)
+    ;(cdr mobile))
+;(define (branch-length branch)
+    ;(car branch))
+;(define (branch-structure branch)
+    ;(cdr branch))
 (define (make-mobile left right)
     (list left right))
 (define (make-branch length structure)
@@ -29,3 +44,4 @@
 
 (print mobile2)
 (print (total-weight mobile2)) ; expected 21 and it's really produce 21
+; don't understand torque (i'm sucks at physics)
