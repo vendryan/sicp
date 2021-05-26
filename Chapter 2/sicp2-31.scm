@@ -1,0 +1,17 @@
+(define nil '())
+(define test (list 1 (list 2 3) 4 5))
+(define test2 (list 6 7 (list 8 (list 9 (list 10)))))
+(define (print line)
+    (display line)
+    (newline))
+(define (tree-map proc tree)
+    (cond ((null? tree) nil)
+          ((not (pair? tree)) (proc tree))
+          (else (cons (tree-map proc (car tree))
+                      (tree-map proc (cdr tree))))))
+
+(define (square-tree tree)
+    (tree-map square tree))
+
+(print (square-tree test))
+(print (square-tree test2))
