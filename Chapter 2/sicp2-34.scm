@@ -24,6 +24,20 @@
 
 (define (tree-enumerate tree)
     (cond ((null? tree) nil)
+          ((not (pair? tree)) (list tree))
+          (else (append (tree-enumerate (car tree))
+                        (tree-enumerate (cdr tree))))))
+
+; Generate list of given interval
+(define (enumerate-interval low high)
+    (if (> low high)
+        nil
+        (cons low 
+              (enumerate-interval (+ low 1) high))))
     
 (print (filter (lambda (x) (= x 0))
                (list 0 2 3 4 0)))
+
+(print (tree-enumerate (list 3 4 (list 4 5) (list 6 7))))
+
+(print (enumerate-interval 0 6))
