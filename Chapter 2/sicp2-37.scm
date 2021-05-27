@@ -19,8 +19,19 @@
 (define (matrix-*-vector m v)
     (map (lambda (x) (dot-product x v))
          m))
+(define (transpose mat)
+    (accumulate-n cons nil mat))
+; MATRIX
+; _     _
+;| 1 2 3 |
+;| 4 5 6 |
+;-      -
+(define matrix (list (list 1 2 3) (list 4 5 6)))
+; vector ( 1 2 3)
+(define vector (list 1 2 3))
 
-
-(print (dot-product (list 4 5 6) (list 1 2 3)))
-(print (matrix-*-vector (list (list 1 2 3) (list 4 5 6))
-                        (list 1 2 3)))
+(print (dot-product vector vector))
+(print (matrix-*-vector matrix
+                        vector))
+(print (transpose matrix))
+                    
