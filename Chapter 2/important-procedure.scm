@@ -6,8 +6,8 @@
 (define (map proc sequence)
     (if (null? items)
         nil
-        (cons (proc (car items))
-              (map proc (cdr items)))))
+        (cons (proc (car sequence))
+              (map proc (cdr sequence)))))
 
 (define (filter predicate sequence)
     (cond ((null? sequence) nil)
