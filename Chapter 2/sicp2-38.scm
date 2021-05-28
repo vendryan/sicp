@@ -22,11 +22,11 @@
                   (cdr rest))))
     (iter initial sequence))
 
-(print (fold-right / 1 (list 1 2 3)))
-(print (fold-left / 1 (list 1 2 3)))
+(print (fold-right / 1 (list 2 3 4 6)))
+(print (fold-left (lambda (x y) (/ y x)) 1 (list 2 3 4 6)))
 (print (fold-right list nil (list 1 2 3)))
-(print (fold-left list nil (list 1 2 3)))
+(print (fold-left (lambda (x y) (list y x)) nil (list 1 2 3)))
 
 ; Condition that guarantee fold-right and fold-left 
-; produc the same result is we need to reverse the 
-; either of the sequence
+; produce the same result is we need to reverse the 
+; either of the sequence and reverse the operation of the op maybe???
