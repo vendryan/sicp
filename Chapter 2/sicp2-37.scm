@@ -21,12 +21,19 @@
          m))
 (define (transpose mat)
     (accumulate-n cons nil mat))
+(define (matrix-*-matrix m n)
+    (let ((cols (transpose n)))
+        (map (lambda (x)
+                 (map (lambda (y) (dot-product x y))
+                      cols))
+             m)))
 ; MATRIX
 ; _     _
 ;| 1 2 3 |
 ;| 4 5 6 |
 ;-      -
 (define matrix (list (list 1 2 3) (list 4 5 6)))
+(define matrix2 (transpose matrix))
 ; vector ( 1 2 3)
 (define vector (list 1 2 3))
 
@@ -34,4 +41,4 @@
 (print (matrix-*-vector matrix
                         vector))
 (print (transpose matrix))
-                    
+(print (matrix-*-matrix matrix matrix2))
