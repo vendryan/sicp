@@ -30,3 +30,11 @@
 ; Condition that guarantee fold-right and fold-left 
 ; produce the same result is we need to reverse the 
 ; either of the sequence and reverse the operation of the op maybe???
+
+; I think too hard, the answer is just one word
+; COMMMUTATIVE operation will produce same result
+; that cross my mind but i keep thinking the way for
+; not cummutative operation to produce the
+; same result. Why i didn't think of that
+; i already think "hey + and * same result if commutative it's the same"
+; but i didn't think commutative as the answer...
