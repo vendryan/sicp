@@ -75,5 +75,14 @@
          (filter prime-sum?
                  (unique-pairs n))))
 
-(print (unique-triple 4))
-(print (unique-pairs 1))
+
+(define (unique-triple-sum n s)
+    (define (equal-s? triple)
+        (= (+ (car triple)
+              (cadr triple)
+              (caddr triple))
+          s))
+    (filter equal-s?
+            (unique-triple n)))
+
+(print (unique-triple-sum 10 10))
