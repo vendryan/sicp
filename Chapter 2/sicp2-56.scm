@@ -23,7 +23,9 @@
           (* m1 m2))
         (else (list '* m1 m2))))
 (define (make-exponent b p)
-  (list '** b p))
+  (cond ((= p 1) b)
+        ((= p 0) 1)
+        (else (list '** b p))))
 (define (sum? x)
   (and (pair? x) (eq? (car x) '+)))
 (define (product? x)
@@ -67,4 +69,4 @@
 
 (print (deriv '(+ x 3) 'x))
 (print (deriv '(+ (* 3 (* x x)) (* 2 x)) 'x))
-(print (deriv '(** x 3) 'x))
+(print (deriv '(** x 2) 'x))
