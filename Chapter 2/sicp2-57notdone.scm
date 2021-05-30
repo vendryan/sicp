@@ -41,7 +41,9 @@
 (define (multiplier x)
   (cadr x))
 (define (multiplicand x)
-  (caddr x))
+  (if (null? (cddr x))
+      1
+      (cons '* (cddr x))))
 (define (base x)
   (cadr x))
 (define (power x)
@@ -70,6 +72,6 @@
          (error "unknown expression type -- DERIV" exp))))
 
 (print (deriv '(+ (* x x) (* x x) x x) 'x))
-(print (deriv '(* x (* x x)) 'x))
+(print (deriv '(* x x x x) 'x))
 ;(print (deriv '(+ (* 3 (* x x)) (* 2 x)) 'x))
 ;(print (deriv '(** x 2) 'x))
