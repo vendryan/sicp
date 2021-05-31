@@ -5,6 +5,10 @@
 
 (define (=number? x y)
   (and (number? x) (number? y) (= x y)))
+(define (length item)
+  (if (null? item)
+      0
+      (+ 1 (length (cdr item)))))
 
 (define (variable? x) (symbol? x))
 (define (same-variable? x1 x2)
@@ -43,7 +47,9 @@
 (define (multiplicand x)
   (if (null? (cddr x))
       1
-      (cons '* (cddr x))))
+      (if (= (length x) 3) ; if (* x x) then don't 
+          (cadr x)         ;cons it with * just return x
+          (cons '* (cddr x)))))
 (define (base x)
   (cadr x))
 (define (power x)
