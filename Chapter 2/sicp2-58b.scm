@@ -9,10 +9,10 @@
   (if (null? item)
       0
       (+ 1 (length (cdr item)))))
-(define (exist item x)
+(define (exist item symbol)
   (cond ((null? item) #f)
-        ((eq? (car item) x) #t)
-        (exist (cdr item) x)))
+        ((eq? (car item) symbol) #t)
+        (else (exist (cdr item) symbol))))
 
 (define (variable? x) (symbol? x))
 (define (same-variable? x1 x2)
@@ -37,12 +37,12 @@
 ; Check if it exist plus sign in entire equation
 ; If exist then derive the equation in the left 
 ; and the right of the plus
-(define (sum? x)
-  (and (pair? x) (exist x '+)))
-(define (product? x)
-  (and (pair? x) (exist x '*)))
-(define (exponent? x)
-  (and (pair? x) (eq? (cadr x) '**)))
+(define (sum? item)
+  (and (pair? item) (exist item '+)))
+(define (product? item)
+  (and (pair? item) (exist item '*)))
+(define (exponent? item)
+  (and (pair? item) (eq? (cadr item) '**)))
 ; If just single number return that else
 ; Get the entire equation before the plus
 (define (addend x)
@@ -58,12 +58,14 @@
   (if (eq? (car x) '+)
       (if (= (length (cdr x)) 1) ; if the length of
           (cadr x)  ; right side is one then just
-          (cdr x))  ; give that item
+          (cdr x))  ; give that item else return all
       (augend (cdr x))))
 (define (multiplier x)
   (car x))
 (define (multiplicand x)
-  (caddr x))
+  (if (= (length x) 3)
+      (caddr x)
+      (cddr x)))
 (define (base x)
   (car x))
 (define (power x)
@@ -91,9 +93,12 @@
         (else
          (error "unknown expression type -- DERIV" exp))))
 
-(print (deriv '(x + x + x) 'x))
-(print (addend '(x + x)))
-(print (car '(x + x)))
+(print (deriv '(x + x * x) 'x))
+(print (deriv '(x + 3 * (x + y + 2)) 'x))
+;(print (addend '(x + x * x)))
+;(print (augend '(x + x * x)))
+;(print (sum? (list 'x '+ 'x '* 'x)))
+;(print (number? 5))
 ; (print (deriv '(x * x) 'x))
 ;(print (deriv '(+ (* 3 (* x x)) (* 2 x)) 'x))
 ;(print (deriv '(** x 2) 'x))
