@@ -63,8 +63,8 @@
 (define (multiplier x)
   (car x))
 (define (multiplicand x)
-  (if (= (length x) 3)
-      (caddr x)
+  (if (= (length x) 3) ; if this is the case then 
+      (caddr x) ; theres only one number at right side (grouped equation) so return that
       (cddr x)))
 (define (base x)
   (car x))
