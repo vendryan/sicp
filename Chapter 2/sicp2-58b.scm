@@ -43,10 +43,16 @@
   (and (pair? x) (exist x '*)))
 (define (exponent? x)
   (and (pair? x) (eq? (cadr x) '**)))
-(define (addend x)
-  (car x))
+; Get the entire equation before the plus
+(define (addend x) ; x * x + x ; x + x
+  (if (eq? (cadr x) '+)
+      (car x)
+      (cons (car x) (addend (cdr x)))))
+; Return the right equation
 (define (augend x)
-  (caddr x))
+  (if (eq? (car x) '+)
+      (cdr x)
+      (augend (cdr x))))
 (define (multiplier x)
   (car x))
 (define (multiplicand x)
@@ -78,7 +84,8 @@
         (else
          (error "unknown expression type -- DERIV" exp))))
 
-(print (deriv '(x + x) 'x))
-(print (deriv '(x * x) 'x))
+; (print (deriv '(x + x) 'x))
+(print (addend '(x * x + x)))
+; (print (deriv '(x * x) 'x))
 ;(print (deriv '(+ (* 3 (* x x)) (* 2 x)) 'x))
 ;(print (deriv '(** x 2) 'x))
