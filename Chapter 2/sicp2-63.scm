@@ -79,3 +79,4 @@
 
 ; ans a : procedure 1 and 2 produce the same list and hence 
 ; it's the same
+; ans b ; it's time complexity is the same and run in O(n) step
