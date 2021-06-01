@@ -36,7 +36,7 @@
 ; else if x1 = x2 then cons it with the union of cdr of two set
 (define (union-set set1 set2)
   (if (or (null? set1) (null? set2))
-      '()
+      (if (null? set1) set2 set1)
       (let ((x1 (car set1)) (x2 (car set2)))
         (cond ((= x1 x2)
                (cons x1
