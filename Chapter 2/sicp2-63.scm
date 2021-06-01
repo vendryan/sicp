@@ -80,3 +80,10 @@
 ; ans a : procedure 1 and 2 produce the same list and hence 
 ; it's the same
 ; ans b ; it's time complexity is the same and run in O(n) step
+; seems like i'm wrong need to use what i learn (i searched internet because i'm not sure)
+; first procedure reccurence:
+; T(n) = 2*T(n/2) + O(n/2) (append takes linear time)
+; T(n) = O(n log n)
+; second procedure
+; T(n) = 2*T(n/2) + O(1) (cons take constant time)
+; T(n) = O(n)
