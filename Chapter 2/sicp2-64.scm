@@ -31,6 +31,12 @@
 
 ; This one so hard
 ; It split to left-tree (smaller than this entry), this-entry and right-tree(bigger than this entry)
+;                     5
+;                    / \
+;                   /   \
+;                  1     9
+;                   \   / \
+;                   3  7  11
 ; The time complexity is
 ; T(n) = 2 * T(n/2) + O(1)
 ; each operation of the procedure take constant time so O(1)
