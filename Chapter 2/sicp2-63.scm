@@ -46,6 +46,7 @@
                                           result-list)))))
   (copy-to-list tree '()))
 
+; Figure 2.16 tree
 (define tree1 (make-tree 1 '() '()))
 (define tree7 (make-tree 7 '() '()))
 (define tree11 (make-tree 11 '() '()))
@@ -60,9 +61,21 @@
 (define tree7-2 (make-tree 7 tree5-2 tree9-2))
 (define tree3-2 (make-tree 3 tree1-2 tree7-2))
 
+(define tree1-3 (make-tree 1 '() '()))
+(define tree11-3 (make-tree 11 '() '()))
+(define tree5-3 (make-tree 5 '() '()))
+(define tree9-3 (make-tree 9 '() tree11-3))
+(define tree3-3 (make-tree 3 tree1-3 tree5-3))
+(define tree7-3 (make-tree 7 tree5-3 tree3-3))
+
 (print (element-of-set? 10 tree5))
 (print (adjoin-set 4 tree5))
 (print (tree->list-1 tree5))
 (print (tree->list-2 tree5))
 (print (tree->list-1 tree3-2))
 (print (tree->list-2 tree3-2))
+(print (tree->list-1 tree7-3))
+(print (tree->list-2 tree7-3))
+
+; ans a : procedure 1 and 2 produce the same list and hence 
+; it's the same
