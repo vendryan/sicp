@@ -38,5 +38,12 @@
 (define tree9 (make-tree 9 tree7 tree11))
 (define tree5 (make-tree 5 tree3 tree9))
 
+(define tree1-2 (make-tree 1 '() '()))
+(define tree11-2 (make-tree 11 '() '()))
+(define tree5-2 (make-tree 5 '() '()))
+(define tree9-2 (make-tree 9 '() tree11-2))
+(define tree7-2 (make-tree 7 tree5-2 tree9-2))
+(define tree3-2 (make-tree 3 tree1-2 tree7-2))
+
 (print (element-of-set? 10 tree5))
 (print (adjoin-set 4 tree5))
