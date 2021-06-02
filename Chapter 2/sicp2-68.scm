@@ -35,7 +35,7 @@
 (define (exist-symbol? x symbol-list)
   (cond ((null? symbol-list) #f)
         ((eq? x (car symbol-list)) #t)
-        (else (exist-symbol x (cdr symbol-list)))))
+        (else (exist-symbol? x (cdr symbol-list)))))
 
 (define (adjoin-set x set)
   (cond ((null? set) (list x))
@@ -75,7 +75,15 @@
               (encode (cdr message) tree))))
             
 (define (encode-symbol symbol tree)
-  
+  (define (encode-symbol-1 tree)
+    (cond ((leaf? tree) '())
+          ((exist-symbol? symbol (symbols (right-branch tree))) ; Check if exist in right branch
+            (cons 1 (encode-symbol-1 (right-branch tree)))) ; if yes cons 1 with the rest of th eencode of right branch
+          (else (cons 0 (encode-symbol-1 (left-branch tree)))))) ; otherwise it must exist in left branch so cons 0 with rest of the encode
+    
+  (if (not (exist-symbol? symbol (symbols tree)))
+      (error "bad symbol -- ENCODE-SYMBOL" symbol)
+      (encode-symbol-1 tree)))
 
 (define sample-tree
   (make-code-tree (make-leaf 'A 4)
@@ -87,4 +95,5 @@
 (define sample-message '(0 1 1 0 0 1 0 1 0 1 1 1 0))
 
 (print (decode sample-message sample-tree))
-; Result is (A D A B B C A)
+(print (encode '(A D A B B C A) sample-tree))
+; Result is (0 1 1 0 0 1 0 1 0 1 1 1 0)
