@@ -18,5 +18,23 @@
                     balance)
              "Insufficient funds"))))
 
+(define (make-account balance)
+  (define (withdraw amount)
+    (if (>= balance amount)
+        (begin (set! balance (- balance amount))
+               balance)
+        "Insufficient amount"))
+  (define (deposit amount)
+    (begin (set! balance (+ balance amount))
+           balance))
+  (define (dispatch m amount)
+    (cond ((eq? m 'deposit) (deposit amount))
+          ((eq? m 'withdraw) (withdraw amount))
+          (else (error "Unknown Instruction -- MAKE-ACCOUNT" m))))
+  dispatch)
+
+(define acc1 (make-account 200))
+(print (acc1 'deposit 500))
+
 (print (new-withdraw 100))
 (print (new-withdraw 50))
