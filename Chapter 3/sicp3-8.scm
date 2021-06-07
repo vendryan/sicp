@@ -17,4 +17,4 @@
 (f 'reset)
 
 ; Right to left
-(display (+ (f 1) (f 0)))
+(display (+ (f 1) (f 0))) ; 1
