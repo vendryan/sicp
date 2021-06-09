@@ -18,20 +18,27 @@
           (exist? x (cdr y)))))
 
 (define (check-cycle pairs)
-  (let ((traversed (list '())))
+  (let ((traversed '()))
+    (define (append!-if-not-null x)
+      (if (null? traversed)
+          (set! traversed (list x))
+          (append! traversed (list x))))
+    
     (define (check-cycle-2 pairs)
-      (cond ((null? pairs)
-              (set! traversed (list '()))
+      (cond ((null? pairs) ; if found the null cdr then reset the traversed and is false
+              (set! traversed '())
               #f)
-            ((or (not (pair? pairs))
-                 (null? (car pairs))) 
+            ((or (not (pair? pairs)) ; if not a pair and
+                 (null? (car pairs))) ; car is null then its not a cycle
               #f)
-            ((exist? pairs traversed) #t)
+            ((or (exist? pairs traversed) ; if current pairs exist in traversed and
+                 (exist? (cdr pairs) traversed)) ; cdr exist in traversed then its a cycle
+              #t)
             (else
-              (append! traversed pairs)
-              (if (eq? (car pairs) (cdr pairs))
+              (append!-if-not-null pairs) ; if null set to current pairs else append
+              (if (eq? (car pairs) (cdr pairs)) ; if car and cdr are equal then check either one
                        (check-cycle-2 (car pairs))
-                       (or (check-cycle-2 (car pairs))
+                       (or (check-cycle-2 (car pairs)) ; else check both
                            (check-cycle-2 (cdr pairs)))))))
     (check-cycle-2 pairs)))
 
@@ -42,3 +49,4 @@
 (define z (make-cycle (list 'a 'b 'c)))
 
 (print (check-cycle z))
+(print (check-cycle (list 1 2 3)))
