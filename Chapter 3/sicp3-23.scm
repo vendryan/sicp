@@ -35,12 +35,23 @@
               (set-car! pointer-pair new-pair)
               (set-front-ptr! deque pointer-pair))))))
 
-
+(define (rear-insert-deque! deque item)
+  (let ((pointer-pair (cons '() '())))
+    (let ((new-pair (cons item '())))
+      (cond ((empty-deque? deque)
+              (set-car! pointer-pair new-pair)
+              (set-front-ptr! deque pointer-pair)
+              (set-rear-ptr! deque pointer-pair))
+            (else
+              (set-cdr! new-pair (rear-ptr deque))
+              (set-rear-ptr! deque pointer-pair)
+              (set-car! pointer-pair new-pair))))))
 
 (define d1 (make-deque))
 (front-deque-insert! d1 'a)
 (print d1)
 (front-deque-insert! d1 'b)
+(rear-insert-deque! d1 'c)
 (print d1)
 (print (front-deque d1))
 (print (rear-deque d1))
