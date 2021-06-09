@@ -44,6 +44,24 @@
                            (check-cycle-2 (cdr pairs)))))))
     (check-cycle-2 pairs)))
 
+; Functional way
+; (actually search the idea on internet cause my solution so complex)
+; (no need to use assignment i need to remember that)
+; (using assignment become so complicated)
+(define (check-cycle pairs)
+  (define (check-cycle-2 pairs traversed)
+    (cond ((not (pair? pairs)) #f)
+          ((or (exist? pairs traversed) 
+               (exist? (cdr pairs) traversed))
+            #t)
+          ((null? (car pairs)) #f)
+          (else
+            (if (eq? (car pairs) (cdr pairs))
+                     (check-cycle-2 (car pairs) (cons pairs traversed))
+                     (or (check-cycle-2 (car pairs) (cons pairs traversed))
+                         (check-cycle-2 (cdr pairs) (cons pairs traversed)))))))
+  (check-cycle-2 pairs '()))
+
 (define (make-cycle x)
   (set-cdr! (last-pair x) x)
   x)
