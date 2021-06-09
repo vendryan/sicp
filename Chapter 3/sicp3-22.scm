@@ -4,14 +4,24 @@
 
 (define (make-queue)
   (let ((front-ptr '())
-        (rear-ptr  '())
+        (rear-ptr  (cons '() '())))
     (define (empty-queue?)
       (null? front-ptr))
+    (define (insert-queue! item)
+      (let ((new-pair (cons item '())))
+        (cond ((empty-queue?)
+                (set! front-ptr new-pair)
+                (set-car! rear-ptr new-pair))
+              (else
+                (set-cdr! front-ptr new-pair)
+                (set-car! rear-ptr new-pair)))))
+    
     (define (dispatch m)
       (cond ((eq? m 'front-queue)
               (if (empty-queue?) 
                   (error "FRONT queue is empty" front-ptr)
                   (car front-ptr)))
-            ((eq? m 'insert!)
-              (cond 
+            ((eq? m 'insert!) insert-queue!)
+            ((eq? m 'delete!) delete-queue!)
+            (else (error "INVALID command" m))))
     dispatch))
