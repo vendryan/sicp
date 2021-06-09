@@ -15,14 +15,16 @@
   (caar (front-ptr deque)))
 (define (rear-deque deque)
   (caar (rear-ptr deque)))
-(define (deque-item-pair deque)
+(define (front-item-pair deque)
   (car (front-ptr deque)))
+(define (rear-item-pair deque)
+  (car (rear-ptr deque)))
 
 ; CONSTRUCTOR
 (define (make-deque) (cons '() '()))
 
 ; MUTATOR
-(define (front-deque-insert! deque item)
+(define (front-insert-deque! deque item)
   (let ((pointer-pair (cons '() '())))
     (let ((new-pair (cons item '())))
       (cond ((empty-deque? deque)
@@ -30,7 +32,7 @@
               (set-front-ptr! deque pointer-pair)
               (set-rear-ptr! deque pointer-pair))
             (else
-              (set-cdr! (deque-item-pair deque) pointer-pair)
+              (set-cdr! (front-item-pair deque) pointer-pair)
               (set-cdr! pointer-pair (front-ptr deque))
               (set-car! pointer-pair new-pair)
               (set-front-ptr! deque pointer-pair))))))
@@ -47,10 +49,21 @@
               (set-rear-ptr! deque pointer-pair)
               (set-car! pointer-pair new-pair))))))
 
+(define (front-delete-deque! deque)
+  (if (empty-deque? deque)
+      (error "DELETE-FRONT! deque but empty" deque)
+      (begin (set-front-ptr! deque (cdr (front-ptr deque)))
+             (set-cdr! (front-item-pair deque) '()))))
+(define (rear-delete-deque! deque)
+  (if (empty-deque? deque)
+      (error "DELETE-REAR! deque but empty" deque)
+      (begin (set-rear-ptr! deque (cdr (rear-item-pair deque)))
+             (set-cdr! (rear-item-pair deque) '()))))
+
 (define d1 (make-deque))
-(front-deque-insert! d1 'a)
+(front-insert-deque! d1 'a)
 (print d1)
-(front-deque-insert! d1 'b)
+(front-insert-deque! d1 'b)
 (rear-insert-deque! d1 'c)
 (print d1)
 (print (front-deque d1))
