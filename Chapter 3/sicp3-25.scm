@@ -10,7 +10,15 @@
       (cond ((null? record) #f)
             ((equal? key (caar record)) (car record))
             (else (assoc (cdr record) key))))
-            
+    
+    ; This is damn hard took me so long to test and
+    ; figure the pattern
+    (define (table-pattern value key-list)
+      (if (null? (cdr key-list))
+          (cons (car key-list) value)
+          (list (car key-list)
+                (table-pattern value (cdr key-list)))))
+    
     (define (lookup table . key-list) 
       (define (lookup-2 table key-list)
         (let ((record (assoc (cdr table) (car key-list))))
@@ -27,7 +35,11 @@
             (else (lookup-2 table key-list))))
     (define (insert! table value . key-list)
       (define (insert-2! table value key-list)
-        ...)
+        (let ((record (assoc (cdr table) (car key-list))))
+          (if (record)
+              
+              (set-cdr! table (cons (table-pattern value key-list)
+                                    (cdr table))))))
       
       ;; Error checking
       (cond ((empty-table?)
