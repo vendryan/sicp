@@ -1,9 +1,29 @@
 (define (make-table)
   (let ((local-table (list '*table*))
         (number-of-key 0))
-    (define (assoc record . key-list)...)
-    (define (lookup table . key-list) ...)
-    (define (insert! table value . key-list). ..)
+    (define (empty-table?)
+      (null? (cdr local-table)))
+    (define (wrong-key-number? key-list)
+      (not (= number-of-key (length key-list))))
+    
+    (define (assoc record key)
+      (cond ((null? record) #f)
+            ((equal? key (caar record)) (car record))
+            (else (assoc (cdr record) key))))
+            
+    (define (lookup table . key-list) 
+      (define (lookup-2 table key-list)
+        ...)
+      
+      ;; Error checking first
+      (cond ((empty-table?)
+              (error "TABLE is empty -- " local-table))
+            ((wrong-key-number? key-list)
+              (error "WRONG number of KEY -- " key-list))
+            (else (lookup-2 table key-list))))
+    (define (insert! table value . key-list)
+      ...)
+      
     (define (dispatch m)
       (cond ((eq? m 'lookup) lookup)
             ((eq? m 'insert!) insert)
