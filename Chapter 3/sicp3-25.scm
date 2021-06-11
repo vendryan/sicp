@@ -13,8 +13,12 @@
             
     (define (lookup table . key-list) 
       (define (lookup-2 table key-list)
-        ...)
-      
+        (let ((record (assoc (cdr table) (car key-list))))
+          (cond ((record)
+                  (if (null? (cdr key-list))
+                      (cdr record)
+                      (lookup-2 record (cdr key-list))))
+                (else #f))))
       ;; Error checking first
       (cond ((empty-table?)
               (error "TABLE is empty -- " local-table))
@@ -27,5 +31,6 @@
     (define (dispatch m)
       (cond ((eq? m 'lookup) lookup)
             ((eq? m 'insert!) insert)
+            ((eq? m 'number-of-key) number-of-key)
             (else (error "UNKNOWN request -- " m))))
-    (dispatch)))
+    dispatch))
