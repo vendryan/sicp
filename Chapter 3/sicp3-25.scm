@@ -37,8 +37,10 @@
       (define (insert-2! table value key-list)
         (let ((record (assoc (cdr table) (car key-list))))
           (if (record)
-              
-              (set-cdr! table (cons (table-pattern value key-list)
+              (if (null? (cdr key-list)) ; Means its found and its
+                  (set-cdr! record value) ; the last key
+                  (insert-2! record value (cdr key-list))
+              (set-cdr! table (cons (table-pattern value key-list) ;; cons the kay table pettaern with cdr of table
                                     (cdr table))))))
       
       ;; Error checking
