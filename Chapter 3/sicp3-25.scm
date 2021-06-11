@@ -15,8 +15,8 @@
       (define (lookup-2 table key-list)
         (let ((record (assoc (cdr table) (car key-list))))
           (cond ((record)
-                  (if (null? (cdr key-list))
-                      (cdr record)
+                  (if (null? (cdr key-list)) ; if cdr is null
+                      (cdr record) ; then cdr of record is the value and thus get the cdr of record
                       (lookup-2 record (cdr key-list))))
                 (else #f))))
       ;; Error checking first
@@ -26,7 +26,16 @@
               (error "WRONG number of KEY -- " key-list))
             (else (lookup-2 table key-list))))
     (define (insert! table value . key-list)
-      ...)
+      (define (insert-2! table value key-list)
+        ...)
+      
+      ;; Error checking
+      (cond ((empty-table?)
+              (set! number-of-key (length key-list))
+              (insert! table value key-list))
+            ((wrong-key-number? key-list)
+              (error "WRONG number of KEY -- " key-list))
+            (else (insert! table value key-list))))
       
     (define (dispatch m)
       (cond ((eq? m 'lookup) lookup)
