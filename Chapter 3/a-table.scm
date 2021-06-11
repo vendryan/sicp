@@ -2,9 +2,9 @@
   (cons '*table* '()))
 
 (define (assoc key table)
-  (if ((null? table) #f)
-      ((equal? key (caar records)) (car records))
-      (else (assoc key (cdr records)))))
+  (cond ((null? table) #f)
+        ((equal? key (caar records)) (car records))
+        (else (assoc key (cdr records)))))
 
 (define (lookup key table)
   (let ((record (assoc key (cdr table))))
