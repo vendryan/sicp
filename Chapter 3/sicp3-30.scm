@@ -62,4 +62,15 @@
     (or-gate c1 c2 c-out)
     'ok))
 
-(define (ripple-carry-adder list-a list-b list-s c))
+(define (ripple-carry-adder wire-list-a wire-list-b wire-list-s carry)
+  (if (null? wire-list-a)
+      'ok
+      (let ((a (car wire-list-a))
+            (b (car wire-list-a))
+            (s (car wire-list-s))
+            (c-out (make-wire)))
+        (full-adder a b carry s c-out)
+        (ripple-carry-adder (cdr wire-list-a)
+                            (cdr wire-list-b)
+                            (cdr wire-list-s)
+                            c-out))))
