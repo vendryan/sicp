@@ -74,3 +74,11 @@
                             (cdr wire-list-b)
                             (cdr wire-list-s)
                             c-out))))
+;; Let orx be the or gate delay, andx be and gate delay and inx be inverter delay
+;; The half adder delay is 2andx + 1orx + 1inx
+;; In full adder there is 2 half adder and one or gate and thus
+;; 1 full adder delay is 2(half-adder-delay) + orx
+;; 4andx + 2orx + 2inx + orx = 4andx + 3orx + 2inx
+;; And ripple carry adder if there is two n bit number is
+;; n  * (full-adder-dealy)
+;;
