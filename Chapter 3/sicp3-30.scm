@@ -66,7 +66,7 @@
   (if (null? wire-list-a)
       'ok
       (let ((a (car wire-list-a))
-            (b (car wire-list-a))
+            (b (car wire-list-b))
             (s (car wire-list-s))
             (c-out (make-wire)))
         (full-adder a b carry s c-out)
