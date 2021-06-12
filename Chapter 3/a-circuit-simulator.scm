@@ -68,7 +68,12 @@
             ((eq? m 'add-action!) accept-action-procedure!)
             (else (error "Unknown operation -- WIRE" m))))
     dispatch))
-    
+
+(define the-agenda (make-agenda))
+(define inverter-delay 2)
+(define and-gate-delay 3)
+(define or-gate-delay 5)
+
 (define (get-signal wire)
   (wire 'get-signal))
 (define (set-signal! wire new-value)
@@ -80,6 +85,16 @@
   (add-to-agenda! (+ delay (current-time the-agenda))
                   action
                   the-agenda))
+
+(define (probe name wire)
+  (add-action! wire
+               (lambda ()        
+                 (newline)
+                 (display name)
+                 (display " ")
+                 (display (current-time the-agenda))
+                 (display "  New-value = ")
+                 (display (get-signal wire)))))
 
 (define (propagate)
   (if (empty-agenda? the-agenda)
