@@ -18,7 +18,7 @@
 (define (force delayed-proc)
   (delayed-proc))
 (define the-empty-stream '())
-(define (empty-stream? s)
+(define (stream-null? s)
   (null? s))
 
 (define (stream-car stream)
@@ -30,7 +30,7 @@
       (stream-car stream)
       (stream-ref (stream-cdr stream) (- n 1))))
 (define (stream-filter pred stream)
-  (cond ((empty-stream? stream) the-empty-stream)
+  (cond ((stream-null? stream) the-empty-stream)
         ((pred (stream-car stream))
           (cons-stream (stream-car stream)
                        (stream-filter pred
