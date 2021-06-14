@@ -1,0 +1,6 @@
+(define (cons-stream first rest)
+  (cons first (delay rest)))
+(define (car-stream stream)
+  (car stream))
+(define (cdr-stream stream)
+  (force (cdr stream)))
