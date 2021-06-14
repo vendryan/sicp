@@ -1,9 +1,9 @@
 (define (memo-proc proc)
-  (let ((already-run? false) (result false))
+  (let ((already-run? #f) (result #f))
     (lambda ()
       (if (not already-run?)
           (begin (set! result (proc))
-                 (set! already-run? true)
+                 (set! already-run? #t)
                  result)
           result))))
 
@@ -17,13 +17,21 @@
 
 (define (force delayed-proc)
   (delayed-proc))
-
 (define (stream-car stream)
   (car stream))
 (define (stream-cdr stream)
   (force (cdr stream)))
-
 (define (stream-ref stream n)
   (if (= n 0)
       (stream-car stream)
       (stream-ref (stream-cdr stream) (- n 1))))
+(define (stream-for-each proc s)
+  (if (stream-null? s)
+      'done
+      (begin (proc (stream-car s))
+             (stream-for-each proc (stream-cdr s)))))
+(define (print . x)
+  (map (lambda (x) (display x) (newline))
+       x))
+(define (display-stream s)
+  (stream-for-each print s))
