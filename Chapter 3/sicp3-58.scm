@@ -19,3 +19,6 @@
 ;                                                     (expand 4 7 10)))))
 ; 1, 4, 2, 8, 5 (expand 5 7 10)
 ; 1, 4, 2, 8, 5, 7 (expand 1 7 10) (alternate again)
+;
+; The num will alternate from 1 to num - 1
+; And the quotient also is alternating
