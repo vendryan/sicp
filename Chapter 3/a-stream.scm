@@ -39,12 +39,20 @@
 
 (define (stream-map proc . argstream)
   (if (stream-null? (car argstream))
-      the-mepty-stream
+      the-empty-stream
       (cons-stream
         (apply proc (map stream-car argstream))
         (apply stream-map
                (cons proc (map stream-cdr
                                argstream))))))
+
+(define (display-top10 s)
+  (define (iter s times)
+    (if (= times 0)
+        'done
+        (begin (print (stream-car s))
+                      (iter (stream-cdr s) (- times 1)))))
+  (iter s 10))
 
 (define (stream-for-each proc s)
   (if (stream-null? s)
@@ -72,8 +80,3 @@
 (define integers (integers-starting-from 1))
 
 (define (divisible? x y) (= (remainder x y) 0))
-(define no-sevens
-  (stream-filter (lambda (x) (not (divisible? x 7)))
-                 integers))
-
-(print (stream-ref no-sevens 100))
