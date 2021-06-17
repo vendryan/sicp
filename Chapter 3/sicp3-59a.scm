@@ -1,0 +1,11 @@
+(define (integrate-series s)
+;  (define (integrate s n)
+;    (cons-stream (stream-car s)
+;                 (stream-map (lambda (x) (* x (/ 1 n)))
+;                             (integrate s (+ n 1)))))
+  (define (integrate s n)
+    (cons-stream (/ (stream-car s) n)
+                 (integrate (stream-cdr s) (+ n 1))))
+  (integrate s 1))
+
+(display-top10 (integrate-series integers))
