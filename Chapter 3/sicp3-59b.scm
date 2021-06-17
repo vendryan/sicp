@@ -17,13 +17,12 @@
   (integrate s 1))
 
 (define (partial-sum s)
-  (cons-stream (stream-car s)
-               (stream-map (stream-cdr s)
-                           (partial-sum s))))
+  (define ps (cons-stream (stream-car s)
+                          (stream-map + (stream-cdr s)
+                                      ps)))
+  ps)
 
 (define sine-series
-  (cons-stream 0 (integrate-series cosine-series)))
+  (cons-stream 0.0 (integrate-series cosine-series)))
 (define cosine-series
-  (cons-stream 1 (integrate-series (stream-map - sine-series))))
-
-(display-top10 (partial-sum sine-series))
+  (cons-stream 1.0 (integrate-series (stream-map - sine-series))))
