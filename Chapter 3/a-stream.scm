@@ -80,3 +80,30 @@
 (define integers (integers-starting-from 1))
 
 (define (divisible? x y) (= (remainder x y) 0))
+
+(define (add-streams s1 s2)
+  (stream-map + s1 s2))
+(define (scale-stream s factor)
+  (stream-map (lambda (x) (* x factor)) s))
+
+(define (integrate-series s)
+; elegant approach: (stream-map / s integers))
+;  (define (integrate s n)
+;    (cons-stream (stream-car s)
+;                 (stream-map (lambda (x) (* x (/ 1 n)))
+;                             (integrate s (+ n 1)))))
+  (define (integrate s n)
+    (cons-stream (/ (stream-car s) n)
+                 (integrate (stream-cdr s) (+ n 1))))
+  (integrate s 1))
+
+(define (partial-sum s)
+  (cons-stream (stream-car s)
+               (stream-map + (stream-cdr s)
+                             (partial-sum s))))
+
+(define (mul-series s1 s2)
+  (cons-stream (* (stream-car s1)
+                  (stream-car s2))
+               (add-streams (scale-stream (stream-cdr s2) (stream-car s1))
+                            (mul-series (stream-cdr s1) s2))))
