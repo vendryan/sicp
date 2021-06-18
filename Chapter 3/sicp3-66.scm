@@ -68,6 +68,6 @@
 
 ; minus 1 because stream-ref counting start from zero
 ; we can't compute S99 because it get really big
-;(print (stream-ref mystery (- (stream-ref Sn 15) 1)))
-(print (- (stream-ref Sn 98) 1)) ; (99 99) 633825300114114700748351602686th element
-(print (- (stream-ref Sn 99) 1)) ; (100 100) 1267650600228229401496703205374th element
+; (print (stream-ref mystery (- (stream-ref Sn 15) 1)))
+(print (stream-ref Sn 98)) ; (99 99) 633825300114114700748351602687th element
+(print (stream-ref Sn 99)) ; (100 100) 1267650600228229401496703205375th element
