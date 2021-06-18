@@ -47,12 +47,13 @@
                                argstream))))))
 
 (define (display-top10 s)
-  (define (iter s times)
+  (display-top-n s 10))
+
+(define (display-top-n s times)
     (if (= times 0)
         'done
         (begin (print (stream-car s))
-                      (iter (stream-cdr s) (- times 1)))))
-  (iter s 10))
+                      (display-top-n (stream-cdr s) (- times 1)))))
 
 (define (stream-for-each proc s)
   (if (stream-null? s)
