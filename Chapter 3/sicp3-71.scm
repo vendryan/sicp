@@ -1,0 +1,13 @@
+(define (consecutive-value s weight times)
+  (define (iter s val how-many)
+    (cond ((stream-null?) the-empty-stream)
+          ((null? val) (iter (stream-cdr s) 
+                             (weight (stream-car s))
+                             (+ how-many 1)))
+          ((= how-many times)
+            (cons-stream (weight (stream-car s))
+                         (iter (stream-cdr s)
+                               val
+                               0)))
+          ((not (= val (weight (stream-car s))))
+            (iter (stream-cdr)
