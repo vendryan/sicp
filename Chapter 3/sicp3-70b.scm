@@ -37,6 +37,8 @@
 (define (divisible-by2-3-5? item)
   (or (divisible? item 2) (divisible? item 3) (divisible? item 5)))
 
+; Stream with pairs not divisible by 2 3 5 and
+; weighted by 2i + 3j + 5ij
 (define strange-pairs (stream-filter 
                         (lambda (x) (and (not (divisible-by2-3-5? (car x)))
                                          (not (divisible-by2-3-5? (cadr x)))))
